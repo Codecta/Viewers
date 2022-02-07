@@ -384,6 +384,7 @@ class Viewer extends Component {
 
           {/* MAIN */}
           <div className={classNames('main-content')}>
+            <h3 style={{ color: 'blue' }}>testing</h3>
             <ErrorBoundaryDialog context="ViewerMain">
               <AppContext.Consumer>
                 {appContext => {

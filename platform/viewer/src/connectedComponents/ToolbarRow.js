@@ -179,10 +179,6 @@ class ToolbarRow extends Component {
     }
 
     if (activeContextsChanged) {
-      console.log(
-        'visible toolbar buttons ',
-        _getVisibleToolbarButtons.call(this)
-      );
       this.setState(
         {
           toolbarButtons: _getVisibleToolbarButtons.call(this),
@@ -347,10 +343,6 @@ function _getButtonComponents(toolbarButtons, activeButtons) {
 function _handleToolbarButtonClick(button, evt, props) {
   const { activeButtons } = this.state;
 
-  console.log(' button ', button);
-  console.log(' evt ', evt);
-  console.log(' props ', props);
-
   if (button.commandOptions !== undefined) {
     if (button.commandOptions.toolName !== undefined) {
       if (button.commandOptions.toolName === 'PatientInformationsPanel') {
@@ -364,24 +356,24 @@ function _handleToolbarButtonClick(button, evt, props) {
     const options = Object.assign({ evt }, { toolName: 'StackScroll' });
     commandsManager.runCommand('setToolActive', options);
     this.updatePreviousButton({});
+    this.setState({ activeButtons: [] });
   } else {
     if (button.commandName) {
       const options = Object.assign({ evt }, button.commandOptions);
       commandsManager.runCommand(button.commandName, options);
     }
     this.updatePreviousButton(button);
-  }
-
-  // TODO: Use Types ENUM
-  // TODO: We can update this to be a `getter` on the extension to query
-  //       For the active tools after we apply our updates?
-  if (button.type === 'setToolActive') {
-    const toggables = activeButtons.filter(
-      ({ options }) => options && !options.togglable
-    );
-    this.setState({ activeButtons: [...toggables, button] });
-  } else if (button.type === 'builtIn') {
-    this._handleBuiltIn(button);
+    // TODO: Use Types ENUM
+    // TODO: We can update this to be a `getter` on the extension to query
+    //       For the active tools after we apply our updates?
+    if (button.type === 'setToolActive') {
+      const toggables = activeButtons.filter(
+        ({ options }) => options && !options.togglable
+      );
+      this.setState({ activeButtons: [...toggables, button] });
+    } else if (button.type === 'builtIn') {
+      this._handleBuiltIn(button);
+    }
   }
 }
 

@@ -25,7 +25,8 @@
   position: relative;
 }
 
-.DicomPDFViewport canvas, #text-layer {
+.DicomPDFViewport canvas,
+#text-layer {
   display: block;
   margin: 0 auto;
   overflow: hidden;
@@ -53,7 +54,7 @@
   line-height: 1;
 }
 
-.DicomPDFViewport #text-layer>span {
+.DicomPDFViewport #text-layer > span {
   color: transparent;
   position: absolute;
   white-space: pre;

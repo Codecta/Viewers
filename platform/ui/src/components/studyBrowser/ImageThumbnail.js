@@ -59,9 +59,9 @@ function ImageThumbnail(props) {
       })
       .catch(error => {
         if (error.isCanceled) return;
-        // setLoading(false);
-        // setError(true);
-        // throw new Error(error);
+        setLoading(false);
+        setError(true);
+        throw new Error(error);
       });
   };
 
@@ -122,14 +122,14 @@ function ImageThumbnail(props) {
         )}
       </div>
       {loadingOrError}
-      {showStackLoadingProgressBar && (
+      {/* {showStackLoadingProgressBar && (
         <div className="image-thumbnail-progress-bar">
           <div
             className="image-thumbnail-progress-bar-inner"
             style={{ width: `${stackPercentComplete}%` }}
           />
         </div>
-      )}
+      )} */}
       {isLoading && <div className="image-thumbnail-loading-indicator"></div>}
     </div>
   );

@@ -5,8 +5,6 @@ import csTools from 'cornerstone-tools';
 import merge from 'lodash.merge';
 import initCornerstoneTools from './initCornerstoneTools.js';
 import measurementServiceMappingsFactory from './utils/measurementServiceMappings/measurementServiceMappingsFactory';
-import dicomSRModule from './tools/modules/dicomSRModule';
-import srModuleId from './tools/id';
 
 /**
  *
@@ -16,8 +14,6 @@ import srModuleId from './tools/id';
  */
 export default function init({ servicesManager, configuration }) {
   const { UIDialogService, MeasurementService } = servicesManager.services;
-
-  csTools.register('module', srModuleId, dicomSRModule);
 
   const callInputDialog = (data, event, callback) => {
     if (UIDialogService) {
@@ -164,12 +160,14 @@ export default function init({ servicesManager, configuration }) {
     }
   });
 
-  csTools.setToolActive('Pan', { mouseButtonMask: 4 });
-  csTools.setToolActive('Zoom', { mouseButtonMask: 2 });
-  csTools.setToolActive('Wwwc', { mouseButtonMask: 1 });
-  csTools.setToolActive('StackScrollMouseWheel', {}); // TODO: Empty options should not be required
+  // csTools.setToolActive('Pan', { mouseButtonMask: 4 });
+  // csTools.setToolActive('Zoom', { mouseButtonMask: 2 });
+  // csTools.setToolActive('Wwwc', { mouseButtonMask: 1 });
+  csTools.setToolActive('StackScroll', {});
+  csTools.setToolActive('StackScrollMouseWheel', {});
+  // TODO: Empty options should not be required
   csTools.setToolActive('PanMultiTouch', { pointers: 2 }); // TODO: Better error if no options
-  csTools.setToolActive('ZoomTouchPinch', {});
+  csTools.setToolActive('ZoomTouchPinch', { pointers: 2 });
   csTools.setToolEnabled('Overlay', {});
 }
 

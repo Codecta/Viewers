@@ -121,15 +121,15 @@ function ThumbnailFooter({
     const seriesInformation = (
       <div className="series-information">
         <React.Fragment>
-          {SeriesNumber !== undefined ? (
-            getInfo(SeriesNumber, 'S:')
+          {numImageFrames !== undefined ? (
+            getInfo(numImageFrames, '', 'image-frames')
           ) : (
             <React.Fragment></React.Fragment>
           )}
         </React.Fragment>
         <React.Fragment>
-          {numImageFrames !== undefined ? (
-            getInfo(numImageFrames, '', 'image-frames')
+          {SeriesNumber !== undefined ? (
+            getInfo(SeriesNumber, 'S:')
           ) : (
             <React.Fragment></React.Fragment>
           )}
@@ -142,17 +142,17 @@ function ThumbnailFooter({
     return seriesInformation;
   };
 
-  return (
-    <div className={classNames('series-details', { 'info-only': infoOnly })}>
-      <div className="series-description">{SeriesDescription}</div>
-      {getSeriesInformation(
-        SeriesNumber,
-        numImageFrames,
-        inconsistencyWarnings,
-        derivedDisplaySetsActive
-      )}
-    </div>
-  );
+  // return (
+  //   <div className={classNames('series-details', { 'info-only': infoOnly })}>
+  //     <div className="series-description">{SeriesDescription}</div>
+  //     {getSeriesInformation(
+  //       SeriesNumber,
+  //       numImageFrames,
+  //       inconsistencyWarnings,
+  //       derivedDisplaySetsActive
+  //     )}
+  //   </div>
+  // );
 }
 
 function Thumbnail(props) {
@@ -203,7 +203,7 @@ function Thumbnail(props) {
       type: 'thumbnail', // Has to match `dropTarget`'s type
     },
     canDrag: function(monitor) {
-      return supportsDrag;
+      return false;
     },
   });
 
@@ -219,6 +219,20 @@ function Thumbnail(props) {
       onMouseDown={onMouseDown}
     >
       {/* SHOW IMAGE */}
+      <div style={{ position: 'relative' }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            zIndex: 999,
+            display: 'flex',
+            width: '100%',
+          }}
+        >
+          {ThumbnailFooter(props)}
+        </div>
+      </div>
+
       {hasImage && (
         <ImageThumbnail
           active={active}
@@ -235,7 +249,6 @@ function Thumbnail(props) {
           <h1>{altImageText}</h1>
         </div>
       )}
-      {ThumbnailFooter(props)}
     </div>
   );
 }

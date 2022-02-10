@@ -32,10 +32,10 @@ export function ToolbarButton(props) {
       data-cy={cypressSelectorId}
     >
       {iconProps && <Icon {...iconProps} />}
-      <div className="toolbar-button-label">
+      {/* <div className="toolbar-button-label">
         {t(label)}
         {arrowIcon}
-      </div>
+      </div> */}
     </div>
   );
 }

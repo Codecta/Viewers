@@ -7,6 +7,12 @@ import angleLeft from './icons/angle-left.svg';
 import arrows from './icons/arrows.svg';
 import arrowsAltH from './icons/arrows-alt-h.svg';
 import arrowsAltV from './icons/arrows-alt-v.svg';
+import arrowUp from './icons/arrow-up.svg';
+import closeIcon from './icons/close-icon.svg';
+import infoIcon from './icons/info-icon.svg';
+import starIcon from './icons/star-icon.svg';
+import writtenPaper from './icons/written-paper.svg';
+import moreOptions from './icons/more-options.svg';
 import bars from './icons/bars.svg';
 import brain from './icons/brain.svg';
 import brush from './icons/brush.svg';
@@ -52,7 +58,7 @@ import measureTarget from './icons/measure-target.svg';
 import measureTargetCr from './icons/measure-target-cr.svg';
 import measureTargetNe from './icons/measure-target-ne.svg';
 import measureTargetUn from './icons/measure-target-un.svg';
-import measureTemp from './icons/measure-temp.svg';
+import measureTemp from './icons/ruler-icon.svg';
 import objectGroup from './icons/object-group.svg';
 import ohifLogo from './icons/ohif-logo.svg';
 import ohifTextLogo from './icons/ohif-text-logo.svg';
@@ -107,6 +113,12 @@ const ICONS = {
   crosshairs,
   'dot-circle': dotCircle,
   'angle-left': angleLeft,
+  'arrow-up': arrowUp,
+  'info-icon': infoIcon,
+  'close-icon': closeIcon,
+  'written-paper': writtenPaper,
+  'star-icon': starIcon,
+  'more-options': moreOptions,
   '3d-rotate': d3Rotate,
   plus,
   'chevron-down': chevronDown,

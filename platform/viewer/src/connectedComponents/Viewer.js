@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import OHIF, { MODULE_TYPES, DICOMSR } from '@ohif/core';
@@ -11,7 +11,7 @@ import ConnectedStudyBrowser from './ConnectedStudyBrowser.js';
 import ConnectedViewerMain from './ConnectedViewerMain.js';
 import SidePanel from './../components/SidePanel.js';
 import ErrorBoundaryDialog from './../components/ErrorBoundaryDialog';
-import { extensionManager, servicesManager } from './../App.js';
+import { extensionManager } from './../App.js';
 import { ReconstructionIssues } from './../../../core/src/enums.js';
 
 // Contexts
@@ -22,6 +22,12 @@ import AppContext from '../context/AppContext';
 import './Viewer.css';
 import StudyPrefetcher from '../components/StudyPrefetcher.js';
 import StudyLoadingMonitor from '../components/StudyLoadingMonitor';
+import {
+  formatDICOMDate,
+  formatDICOMTime,
+} from '../../../../extensions/cornerstone/src/utils/formatStudy.js';
+import { PatientInformationsPanel } from './PatientInformationsPanel.js';
+import { MoreOptionsBoxPanel } from './MoreOptionsBoxPanel.js';
 
 const { studyMetadataManager } = OHIF.utils;
 
@@ -70,11 +76,9 @@ class Viewer extends Component {
     const { activeServer } = this.props;
     const server = Object.assign({}, activeServer);
 
-    const external = { servicesManager };
-
     OHIF.measurements.MeasurementApi.setConfiguration({
       dataExchange: {
-        retrieve: server => DICOMSR.retrieveMeasurements(server, external),
+        retrieve: DICOMSR.retrieveMeasurements,
         store: DICOMSR.storeMeasurements,
       },
       server,
@@ -93,12 +97,33 @@ class Viewer extends Component {
     this._getActiveViewport = this._getActiveViewport.bind(this);
   }
 
+  toggleMoreOptionsPanel() {
+    this.state.showMoreOptions = !this.state.showMoreOptions;
+    this.forceUpdate();
+  }
+
+  togglePatientInfo(isMetadata, isReport) {
+    this.state.isMetadata = isMetadata;
+    this.state.isReport = isReport;
+    this.state.showPatientInfo = !this.state.showPatientInfo;
+    this.forceUpdate();
+  }
+
+  // togglePatientInfo() {
+  //   this.state.showMoreOptions = !this.state.showMoreOptions;
+  //   this.forceUpdate();
+  // }
+
   state = {
     isLeftSidePanelOpen: true,
     isRightSidePanelOpen: false,
     selectedRightSidePanel: '',
     selectedLeftSidePanel: 'studies', // TODO: Don't hardcode this
     thumbnails: [],
+    showMoreOptions: false,
+    showPatientInfo: false,
+    isMetadata: false,
+    isReport: false,
   };
 
   componentWillUnmount() {
@@ -273,86 +298,69 @@ class Viewer extends Component {
       });
     });
 
+    var patientInfo = this.props.studies[0];
+    const showPatientInfo = this.state.showPatientInfo;
+    const showMoreOptions = this.state.showMoreOptions;
+
     return (
-      <>
-        {/* HEADER */}
-        <WhiteLabelingContext.Consumer>
-          {whiteLabeling => (
-            <UserManagerContext.Consumer>
-              {userManager => (
-                <AppContext.Consumer>
-                  {appContext => (
-                    <ConnectedHeader
-                      linkText={
-                        appContext.appConfig.showStudyList
-                          ? 'Study List'
-                          : undefined
-                      }
-                      linkPath={
-                        appContext.appConfig.showStudyList ? '/' : undefined
-                      }
-                      userManager={userManager}
-                    >
-                      {whiteLabeling &&
-                        whiteLabeling.createLogoComponentFn &&
-                        whiteLabeling.createLogoComponentFn(React)}
-                    </ConnectedHeader>
-                  )}
-                </AppContext.Consumer>
-              )}
-            </UserManagerContext.Consumer>
-          )}
-        </WhiteLabelingContext.Consumer>
-        {/* TOOLBAR */}
-        <ErrorBoundaryDialog context="ToolbarRow">
-          <ToolbarRow
-            activeViewport={
-              this.props.viewports[this.props.activeViewportIndex]
-            }
-            isLeftSidePanelOpen={this.state.isLeftSidePanelOpen}
-            isRightSidePanelOpen={this.state.isRightSidePanelOpen}
-            selectedLeftSidePanel={
-              this.state.isLeftSidePanelOpen
-                ? this.state.selectedLeftSidePanel
-                : ''
-            }
-            selectedRightSidePanel={
-              this.state.isRightSidePanelOpen
-                ? this.state.selectedRightSidePanel
-                : ''
-            }
-            handleSidePanelChange={(side, selectedPanel) => {
-              const sideClicked = side && side[0].toUpperCase() + side.slice(1);
-              const openKey = `is${sideClicked}SidePanelOpen`;
-              const selectedKey = `selected${sideClicked}SidePanel`;
-              const updatedState = Object.assign({}, this.state);
+      <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
+        <PatientInformationsPanel
+          patientInfo={patientInfo}
+          isPatientInfoOpen={showPatientInfo}
+          isMetadata={this.state.isMetadata}
+          isReport={this.state.isReport}
+          togglePatientInfoPanel={() => {
+            this.togglePatientInfo();
+          }}
+        ></PatientInformationsPanel>
 
-              const isOpen = updatedState[openKey];
-              const prevSelectedPanel = updatedState[selectedKey];
-              // RoundedButtonGroup returns `null` if selected button is clicked
-              const isSameSelectedPanel =
-                prevSelectedPanel === selectedPanel || selectedPanel === null;
-
-              updatedState[selectedKey] = selectedPanel || prevSelectedPanel;
-
-              const isClosedOrShouldClose = !isOpen || isSameSelectedPanel;
-              if (isClosedOrShouldClose) {
-                updatedState[openKey] = !updatedState[openKey];
-              }
-
-              this.setState(updatedState);
-            }}
-            studies={this.props.studies}
-          />
-        </ErrorBoundaryDialog>
         <AppContext.Consumer>
           {appContext => <StudyLoadingMonitor studies={this.props.studies} />}
         </AppContext.Consumer>
         {/* VIEWPORTS + SIDEPANELS */}
+
         <div className="FlexboxLayout">
+          <MoreOptionsBoxPanel
+            patientInfo={patientInfo}
+            isMoreOptionsOpen={showMoreOptions}
+            togglePatientInfo={(isMetadata, isReport) => {
+              this.togglePatientInfo(isMetadata, isReport);
+            }}
+            toggleMoreOptionsPanel={() => {
+              this.toggleMoreOptionsPanel();
+            }}
+          ></MoreOptionsBoxPanel>
+          {/* MAIN */}
+          <div className={classNames('main-content')}>
+            <ErrorBoundaryDialog context="ViewerMain">
+              <AppContext.Consumer>
+                {appContext => {
+                  const { appConfig } = appContext;
+                  const { studyPrefetcher } = appConfig;
+                  const { studies } = this.props;
+                  return (
+                    studyPrefetcher &&
+                    studyPrefetcher.enabled && (
+                      <StudyPrefetcher
+                        studies={studies}
+                        options={studyPrefetcher}
+                      />
+                    )
+                  );
+                }}
+              </AppContext.Consumer>
+              <ConnectedViewerMain
+                studies={this.props.studies}
+                isStudyLoaded={this.props.isStudyLoaded}
+              />
+            </ErrorBoundaryDialog>
+          </div>
           {/* LEFT */}
           <ErrorBoundaryDialog context="LeftSidePanel">
-            <SidePanel from="left" isOpen={this.state.isLeftSidePanelOpen}>
+            <SidePanel
+              from="left"
+              isOpen={showPatientInfo ? false : this.state.isLeftSidePanelOpen}
+            >
               {VisiblePanelLeft ? (
                 <VisiblePanelLeft
                   viewports={this.props.viewports}
@@ -381,36 +389,85 @@ class Viewer extends Component {
               )}
             </SidePanel>
           </ErrorBoundaryDialog>
+        </div>
+        {/* TOOLBAR */}
+        {!showPatientInfo && (
+          <ErrorBoundaryDialog context="ToolbarRow">
+            <ToolbarRow
+              toggleMoreOptionsPanel={() => {
+                this.toggleMoreOptionsPanel();
+              }}
+              activeViewport={
+                this.props.viewports[this.props.activeViewportIndex]
+              }
+              isLeftSidePanelOpen={this.state.isLeftSidePanelOpen}
+              isRightSidePanelOpen={this.state.isRightSidePanelOpen}
+              selectedLeftSidePanel={
+                this.state.isLeftSidePanelOpen
+                  ? this.state.selectedLeftSidePanel
+                  : ''
+              }
+              selectedRightSidePanel={
+                this.state.isRightSidePanelOpen
+                  ? this.state.selectedRightSidePanel
+                  : ''
+              }
+              handleSidePanelChange={(side, selectedPanel) => {
+                const sideClicked =
+                  side && side[0].toUpperCase() + side.slice(1);
+                const openKey = `is${sideClicked}SidePanelOpen`;
+                const selectedKey = `selected${sideClicked}SidePanel`;
+                const updatedState = Object.assign({}, this.state);
 
-          {/* MAIN */}
-          <div className={classNames('main-content')}>
-            <h3 style={{ color: 'blue' }}>testing</h3>
-            <ErrorBoundaryDialog context="ViewerMain">
-              <AppContext.Consumer>
-                {appContext => {
-                  const { appConfig } = appContext;
-                  const { studyPrefetcher } = appConfig;
-                  const { studies } = this.props;
-                  return (
-                    studyPrefetcher &&
-                    studyPrefetcher.enabled && (
-                      <StudyPrefetcher
-                        studies={studies}
-                        options={studyPrefetcher}
-                      />
-                    )
-                  );
-                }}
-              </AppContext.Consumer>
-              <ConnectedViewerMain
-                studies={this.props.studies}
-                isStudyLoaded={this.props.isStudyLoaded}
-              />
-            </ErrorBoundaryDialog>
-          </div>
+                const isOpen = updatedState[openKey];
+                const prevSelectedPanel = updatedState[selectedKey];
+                // RoundedButtonGroup returns `null` if selected button is clicked
+                const isSameSelectedPanel =
+                  prevSelectedPanel === selectedPanel || selectedPanel === null;
 
-          {/* RIGHT */}
-          <ErrorBoundaryDialog context="RightSidePanel">
+                updatedState[selectedKey] = selectedPanel || prevSelectedPanel;
+
+                const isClosedOrShouldClose = !isOpen || isSameSelectedPanel;
+                if (isClosedOrShouldClose) {
+                  updatedState[openKey] = !updatedState[openKey];
+                }
+
+                this.setState(updatedState);
+              }}
+              studies={this.props.studies}
+            />
+          </ErrorBoundaryDialog>
+        )}
+        {/* HEADER */}
+        {/* <WhiteLabelingContext.Consumer>
+          {whiteLabeling => (
+            <UserManagerContext.Consumer>
+              {userManager => (
+                <AppContext.Consumer>
+                  {appContext => (
+                    <ConnectedHeader
+                      linkText={
+                        appContext.appConfig.showStudyList
+                          ? 'Study List'
+                          : undefined
+                      }
+                      linkPath={
+                        appContext.appConfig.showStudyList ? '/' : undefined
+                      }
+                      userManager={userManager}
+                    >
+                      {whiteLabeling &&
+                        whiteLabeling.createLogoComponentFn &&
+                        whiteLabeling.createLogoComponentFn(React)}
+                    </ConnectedHeader>
+                  )}
+                </AppContext.Consumer>
+              )}
+            </UserManagerContext.Consumer>
+          )}
+        </WhiteLabelingContext.Consumer> */}
+        {/* RIGHT */}
+        {/* <ErrorBoundaryDialog context="RightSidePanel">
             <SidePanel from="right" isOpen={this.state.isRightSidePanelOpen}>
               {VisiblePanelRight && (
                 <VisiblePanelRight
@@ -425,9 +482,8 @@ class Viewer extends Component {
                 />
               )}
             </SidePanel>
-          </ErrorBoundaryDialog>
-        </div>
-      </>
+          </ErrorBoundaryDialog> */}
+      </div>
     );
   }
 }

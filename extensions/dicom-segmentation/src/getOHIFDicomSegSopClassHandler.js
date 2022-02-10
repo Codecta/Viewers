@@ -150,16 +150,10 @@ export default function getSopClassHandlerModule({ servicesManager }) {
 }
 
 function _parseSeg(arrayBuffer, imageIds) {
-  const skipOverlapping = false;
-  const tolerance = 1e-2;
-  const cornerstoneToolsVersion = 4;
   return dcmjs.adapters.Cornerstone.Segmentation.generateToolState(
     imageIds,
     arrayBuffer,
-    cornerstone.metaData,
-    skipOverlapping,
-    tolerance,
-    cornerstoneToolsVersion
+    cornerstone.metaData
   );
 }
 

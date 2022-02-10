@@ -1,0 +1,101 @@
+.patientInformationsContainer {
+  display: flex;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  height: 100%;
+  width: 97%;
+  border: 1px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  line-height: 0px;
+}
+
+.aboutPatientContent {
+  margin-top: 50px;
+}
+
+.patientMetadataHeader {
+  font-size: 1.3rem;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.patientMetadataSubheader {
+  font-size: 1;
+}
+
+.patientSubheaderContent {
+  line-height: 0px !important;
+  margin-bottom: 30px;
+}
+
+/* .patientNameContainer {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(45deg, #3f3f3f, #26508e);
+  color: white;
+  text-align: center;
+  padding-top: 50px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+} */
+
+/* .infoItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+  line-height: 0px;
+} */
+
+.patientInfoCloseIconContainer {
+  position: absolute;
+  right: 15px;
+  margin-top: 15px;
+}
+
+.patientReportContainer {
+  display: flex;
+  margin: 20px 20px 0px 10px;
+  padding-left: 7px;
+  flex-direction: column;
+  color: black;
+  height: 100%;
+  border: 1px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow-y: auto;
+  line-height: normal;
+}
+
+.patientReportHeader {
+  font-size: 1.3rem;
+  color: black;
+  margin: 0px;
+  margin-top: 50px;
+}
+
+.patientDate {
+  font-size: 1rem;
+  color: grey;
+  margin: 0px;
+  margin-bottom: 30px;
+}
+
+h4 {
+  margin: 0;
+}
+
+h5 {
+  margin: 0;
+}
+
+/* p {
+  line-height: normal;
+} */

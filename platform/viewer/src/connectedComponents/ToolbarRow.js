@@ -22,6 +22,7 @@ class ToolbarRow extends Component {
   // TODO: Simplify these? isOpen can be computed if we say "any" value for selected,
   // closed if selected is null/undefined
   static propTypes = {
+    toggleMoreOptionsPanel: PropTypes.func.isRequired,
     isLeftSidePanelOpen: PropTypes.bool.isRequired,
     isRightSidePanelOpen: PropTypes.bool.isRequired,
     selectedLeftSidePanel: PropTypes.string.isRequired,
@@ -54,6 +55,7 @@ class ToolbarRow extends Component {
     this.state = {
       toolbarButtons: toolbarButtonDefinitions,
       activeButtons: [],
+      previousButton: {},
     };
 
     this.seriesPerStudyCount = [];
@@ -64,6 +66,10 @@ class ToolbarRow extends Component {
     );
 
     this.updateButtonGroups();
+  }
+
+  updatePreviousButton(prevButton) {
+    this.state.previousButton = prevButton;
   }
 
   updateButtonGroups() {
@@ -173,6 +179,10 @@ class ToolbarRow extends Component {
     }
 
     if (activeContextsChanged) {
+      console.log(
+        'visible toolbar buttons ',
+        _getVisibleToolbarButtons.call(this)
+      );
       this.setState(
         {
           toolbarButtons: _getVisibleToolbarButtons.call(this),
@@ -215,16 +225,16 @@ class ToolbarRow extends Component {
     return (
       <>
         <div className="ToolbarRow">
-          <div className="pull-left m-t-1 p-y-1" style={{ padding: '10px' }}>
+          {/* <div className="pull-left m-t-1 p-y-1" style={{ padding: '10px' }}>
             <RoundedButtonGroup
               options={this.buttonGroups.left}
               value={this.props.selectedLeftSidePanel || ''}
               onValueChanged={onPressLeft}
             />
-          </div>
+          </div> */}
           {buttonComponents}
-          <ConnectedLayoutButton />
-          <div
+          {/* <ConnectedLayoutButton /> */}
+          {/* <div
             className="pull-right m-t-1 rm-x-1"
             style={{ marginLeft: 'auto' }}
           >
@@ -235,7 +245,7 @@ class ToolbarRow extends Component {
                 onValueChanged={onPressRight}
               />
             )}
-          </div>
+          </div> */}
         </div>
       </>
     );
@@ -337,9 +347,29 @@ function _getButtonComponents(toolbarButtons, activeButtons) {
 function _handleToolbarButtonClick(button, evt, props) {
   const { activeButtons } = this.state;
 
-  if (button.commandName) {
-    const options = Object.assign({ evt }, button.commandOptions);
-    commandsManager.runCommand(button.commandName, options);
+  console.log(' button ', button);
+  console.log(' evt ', evt);
+  console.log(' props ', props);
+
+  if (button.commandOptions !== undefined) {
+    if (button.commandOptions.toolName !== undefined) {
+      if (button.commandOptions.toolName === 'PatientInformationsPanel') {
+        this.props.toggleMoreOptionsPanel();
+      }
+    }
+  }
+
+  //Toggle toolbar buttons behaviour added here (enables stackscroll by default after toggleing)
+  if (button.id === this.state.previousButton.id) {
+    const options = Object.assign({ evt }, { toolName: 'StackScroll' });
+    commandsManager.runCommand('setToolActive', options);
+    this.updatePreviousButton({});
+  } else {
+    if (button.commandName) {
+      const options = Object.assign({ evt }, button.commandOptions);
+      commandsManager.runCommand(button.commandName, options);
+    }
+    this.updatePreviousButton(button);
   }
 
   // TODO: Use Types ENUM

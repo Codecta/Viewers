@@ -7,96 +7,102 @@ import { LayoutButton } from './../components/layoutButton';
 // TODO: This should not be built in the `@ohif/ui` component
 function getDefaultButtonData() {
   var buttonData = [
-    {
-      id: 'wwwc',
-      title: 'WW/WC',
-      className: 'imageViewerTool',
-      icon: 'sun',
-    },
-    {
-      id: 'wwwcRegion',
-      title: 'Window by Region',
-      className: 'imageViewerTool',
-      icon: 'stop',
-    },
-    {
-      id: 'magnify',
-      title: 'Magnify',
-      className: 'imageViewerTool',
-      icon: 'circle',
-    },
-    {
-      id: 'annotate',
-      title: 'Annotation',
-      className: 'imageViewerTool',
-      icon: 'arrows-alt-h',
-    },
-    {
-      id: 'invert',
-      title: 'Invert',
-      className: 'imageViewerCommand',
-      icon: 'adjust',
-    },
-    {
-      id: 'zoom',
-      title: 'Zoom',
-      className: 'imageViewerTool',
-      icon: 'search-plus',
-    },
-    {
-      id: 'pan',
-      title: 'Pan',
-      className: 'imageViewerTool',
-      icon: 'arrows',
-    },
-    {
-      id: 'stackScroll',
-      title: 'Stack Scroll',
-      className: 'imageViewerTool',
-      icon: 'bars',
-    },
-    {
-      id: 'length',
-      title: 'Length Measurement',
-      className: 'imageViewerTool',
-      icon: 'arrows-alt-v',
-    },
-    {
-      id: 'angle',
-      title: 'Angle Measurement',
-      className: 'imageViewerTool',
-      icon: 'fa fa-angle-left',
-    },
-    {
-      id: 'dragProbe',
-      title: 'Pixel Probe',
-      className: 'imageViewerTool',
-      icon: 'fa fa-dot-circle-o',
-    },
-    {
-      id: 'ellipticalRoi',
-      title: 'Elliptical ROI',
-      className: 'imageViewerTool',
-      icon: 'circle-o',
-    },
-    {
-      id: 'rectangleRoi',
-      title: 'Rectangle ROI',
-      className: 'imageViewerTool',
-      icon: 'square-o',
-    },
-    {
-      id: 'resetViewport',
-      title: 'Reset Viewport',
-      className: 'imageViewerCommand',
-      icon: 'reset',
-    },
-    {
-      id: 'clearTools',
-      title: 'Clear tools',
-      className: 'imageViewerCommand',
-      icon: 'trash',
-    },
+    // {
+    //   id: 'wwwc',
+    //   title: 'WW/WC',
+    //   className: 'imageViewerTool',
+    //   icon: 'sun',
+    // },
+    // {
+    //   id: 'wwwcRegion',
+    //   title: 'Window by Region',
+    //   className: 'imageViewerTool',
+    //   icon: 'stop',
+    // },
+    // {
+    //   id: 'magnify',
+    //   title: 'Magnify',
+    //   className: 'imageViewerTool',
+    //   icon: 'circle',
+    // },
+    // {
+    //   id: 'annotate',
+    //   title: 'Annotation',
+    //   className: 'imageViewerTool',
+    //   icon: 'arrows-alt-h',
+    // },
+    // {
+    //   id: 'invert',
+    //   title: 'Invert',
+    //   className: 'imageViewerCommand',
+    //   icon: 'adjust',
+    // },
+    // {
+    //   id: 'zoom',
+    //   title: 'Zoom',
+    //   className: 'imageViewerTool',
+    //   icon: 'search-plus',
+    // },
+    // {
+    //   id: 'pan',
+    //   title: 'Pan',
+    //   className: 'imageViewerTool',
+    //   icon: 'arrows',
+    // },
+    // {
+    //   id: 'patientInformationsPanel',
+    //   title: 'Data',
+    //   className: 'imageViewerTool',
+    //   icon: 'arrows',
+    // },
+    // {
+    //   id: 'stackScroll',
+    //   title: 'Stack Scroll',
+    //   className: 'imageViewerTool',
+    //   icon: 'fa fa-angle-right',
+    // },
+    // {
+    //   id: 'length',
+    //   title: 'Length Measurement',
+    //   className: 'imageViewerTool',
+    //   icon: 'arrows-alt-v',
+    // },
+    // {
+    //   id: 'angle',
+    //   title: 'Angle Measurement',
+    //   className: 'imageViewerTool',
+    //   icon: 'fa fa-angle-left',
+    // },
+    // {
+    //   id: 'dragProbe',
+    //   title: 'Pixel Probe',
+    //   className: 'imageViewerTool',
+    //   icon: 'fa fa-dot-circle-o',
+    // },
+    // {
+    //   id: 'ellipticalRoi',
+    //   title: 'Elliptical ROI',
+    //   className: 'imageViewerTool',
+    //   icon: 'circle-o',
+    // },
+    // {
+    //   id: 'rectangleRoi',
+    //   title: 'Rectangle ROI',
+    //   className: 'imageViewerTool',
+    //   icon: 'square-o',
+    // },
+    // {
+    //   id: 'resetViewport',
+    //   title: 'Reset Viewport',
+    //   className: 'imageViewerCommand',
+    //   icon: 'reset',
+    // },
+    // {
+    //   id: 'clearTools',
+    //   title: 'Clear tools',
+    //   className: 'imageViewerCommand',
+    //   icon: 'trash',
+    // },
   ];
   return buttonData;
 }

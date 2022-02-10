@@ -5,7 +5,6 @@ import ConnectedCornerstoneViewport from './ConnectedCornerstoneViewport';
 import OHIF from '@ohif/core';
 import PropTypes from 'prop-types';
 import cornerstone from 'cornerstone-core';
-import checkForSRAnnotations from './tools/checkForSRAnnotations';
 
 const { StackManager } = OHIF.utils;
 
@@ -188,8 +187,6 @@ class OHIFCornerstoneViewport extends Component {
       displaySet.SOPInstanceUID !== prevDisplaySet.SOPInstanceUID ||
       displaySet.frameIndex !== prevDisplaySet.frameIndex
     ) {
-      const { viewportIndex } = this.props;
-      checkForSRAnnotations({ displaySet, viewportIndex });
       this.setStateFromProps();
     }
   }

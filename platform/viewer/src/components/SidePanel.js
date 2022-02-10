@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 const SidePanel = ({ from, isOpen, children, width }) => {
   const fromSideClass = from === 'right' ? 'from-right' : 'from-left';
-
+  const panelClassname = isOpen ? 'sidepanel' : 'sidepanelHidden';
   const styles = width
     ? {
         maxWidth: width,
@@ -17,7 +17,7 @@ const SidePanel = ({ from, isOpen, children, width }) => {
   return (
     <section
       style={styles}
-      className={classNames('sidepanel', fromSideClass, {
+      className={classNames(panelClassname, fromSideClass, {
         'is-open': isOpen,
       })}
     >

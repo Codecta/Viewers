@@ -16,7 +16,7 @@
   display: table
   margin: 0 auto;
   min-width: 90%;
-  padding-bottom: 1.5rem;
+  /*padding-bottom: 1.5rem;*/
 
   .alt-image-text
     align-items: center;
@@ -24,13 +24,12 @@
     background-color: var(--primary-background-color);
     box-shadow: inset 0 0 0 1px var(--ui-border-color-dark);
     border: 2px solid transparent;
-    border-radius: 12px;
-    height: 135px;
+    height: 90px;
+    width: 90px;
     margin: 0 auto;
     padding: 5px;
     position: relative;
     transition: var(--sidebar-transition);
-    width: 217px;
     display: flex;
 
     h1
@@ -39,14 +38,15 @@
 
   .series-details
     display: flex;
-    flex-direction: column
+    flex-direction: row
     color: var(--text-primary-color);
     font-size: 14px
     line-height: 1.3em
-    margin-top: 5px
+    margin-top: 8px
     margin-left: 1rem
     margin-right: 0.5rem
     max-width: 217px
+    width: 100%
     position: relative
     word-wrap: break-word
 
@@ -59,6 +59,8 @@
   .series-information
     display: flex
     flex-direction: row
+    margin-right: 7px
+    align-items: center
     justify-content: space-between
 
     .item-frames .icon
@@ -66,7 +68,6 @@
 
     .item-series.image-frames .icon
         background-color: var(--series-count-background-color);
-        margin-top: 6px
         position: relative
 
         &:after
@@ -75,7 +76,7 @@
           box-shadow: 1px 1px rgba(0, 0, 0, .115)
           left: -4px
           position: absolute
-          top: -4px
+          top: -2px
 
         &
         &:after

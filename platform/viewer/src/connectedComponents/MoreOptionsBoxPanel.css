@@ -1,0 +1,41 @@
+.moreOptionsBoxPanelContainer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin: 8px 8px 1px 8px;
+  flex-direction: column;
+  background-color: white;
+  color: grey;
+  height: 140px;
+  width: 230px;
+  border: 1px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  line-height: 0px;
+}
+
+.moreOptionsBoxPanelListItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px 5px 5px 20px !important;
+}
+
+.moreOptionsBoxPanelItemIcon {
+  margin-right: 10px;
+}
+
+hr {
+  width: 100%;
+  line-height: 0px;
+}
+
+h5 {
+  margin: 0;
+}

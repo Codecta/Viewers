@@ -8,13 +8,13 @@ function StudyBrowser(props) {
     studies,
     onThumbnailClick,
     onThumbnailDoubleClick,
-    supportsDrag,
+
     showThumbnailProgressBar,
   } = props;
 
   return (
-    <div className="study-browser">
-      <div className="scrollable-study-thumbnails">
+    <div style={{ display: 'flex', marginTop: '10px' }}>
+      <div className="scrollable-study-thumbnails" style={{ display: 'flex' }}>
         {studies
           .map((study, studyIndex) => {
             const { StudyInstanceUID } = study;
@@ -41,7 +41,6 @@ function StudyBrowser(props) {
                 >
                   <Thumbnail
                     active={active}
-                    supportsDrag={supportsDrag}
                     key={`${studyIndex}_${thumbIndex}`}
                     id={`${studyIndex}_${thumbIndex}`} // Unused?
                     // Study
@@ -94,7 +93,7 @@ StudyBrowser.propTypes = {
       ),
     })
   ).isRequired,
-  supportsDrag: PropTypes.bool,
+
   onThumbnailClick: PropTypes.func,
   onThumbnailDoubleClick: PropTypes.func,
   showThumbnailProgressBar: PropTypes.bool,
@@ -102,7 +101,7 @@ StudyBrowser.propTypes = {
 
 StudyBrowser.defaultProps = {
   studies: [],
-  supportsDrag: true,
+
   onThumbnailClick: noop,
   onThumbnailDoubleClick: noop,
   showThumbnailProgressBar: true,

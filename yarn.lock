@@ -2756,6 +2756,61 @@
   dependencies:
     "@types/node" "^12.11.1"
 
+"@ohif/extension-cornerstone@^2.12.7":
+  version "2.12.7"
+  resolved "https://registry.yarnpkg.com/@ohif/extension-cornerstone/-/extension-cornerstone-2.12.7.tgz#1e7346c89873ac7d90b3d702a4b3c95c865f3fd9"
+  integrity sha512-07BNRwKOONJMLIRGRpnVRS3dfQSCWPFZYhNxOfFraQlLdTJT5urzmXA3fI9qn/1uT3jCo7yl8tBiHMqzBgmMWA==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    classnames "^2.2.6"
+    lodash.merge "^4.6.2"
+    lodash.throttle "^4.1.1"
+    react-cornerstone-viewport "4.1.1"
+
+"@ohif/extension-dicom-html@^1.3.18":
+  version "1.3.18"
+  resolved "https://registry.yarnpkg.com/@ohif/extension-dicom-html/-/extension-dicom-html-1.3.18.tgz#cdb3b5dc477316d31197e4a26b86c4bf36d69a2a"
+  integrity sha512-qEvBqsBLcmdBQWHSAaUwJuwJ412Cd2O563LZZxZPr5aZNr14Iov8sfMvFIcQnfX/uTNoNPeK5cjQEtL7Llx9LQ==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
+"@ohif/extension-dicom-pdf@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@ohif/extension-dicom-pdf/-/extension-dicom-pdf-1.1.2.tgz#78e7dfdda0c5503bf17a86654a0d50f561832c0a"
+  integrity sha512-pA8hmFELPMV6MZ5hIJ7TT/lFaHhdAuPfzLrD9RfNZzmmT0lkFeUb0+mX1RkTf0tbTCBN2kVPJh4qppS7EOEl/A==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    classnames "^2.2.6"
+    lodash.isequal "^4.5.0"
+    pdfjs-dist "^2.2.228"
+
+"@ohif/extension-dicom-rt@^0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@ohif/extension-dicom-rt/-/extension-dicom-rt-0.7.8.tgz#ea7e5025e873255adf5199e8b7020da15e02aafb"
+  integrity sha512-zCAH5ZcTL+aPGRlnC5AVYtdJrjKV/ZO0d9ZZmmhT+r2tekCf2vNz1detKi/C0IwnQ7HavrkDFU9RlFl/uSFs5g==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    react-select "^3.0.8"
+
+"@ohif/extension-dicom-segmentation@^0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@ohif/extension-dicom-segmentation/-/extension-dicom-segmentation-0.7.8.tgz#23270169f0fe41a7e164a7443149fd8d3a00a846"
+  integrity sha512-4IEaIIlW57EB2QjJC+5g2bMSr/xkB1/77doBOx+KODZOKMYGf5YflmHNeIVyPGyS/zo+E+GXOpXeTH8PrD2EGg==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    gl-matrix "^3.3.0"
+    react-select "^3.0.8"
+    react-tooltip "4.2.10"
+
+"@ohif/extension-vtk@^1.12.15":
+  version "1.12.15"
+  resolved "https://registry.yarnpkg.com/@ohif/extension-vtk/-/extension-vtk-1.12.15.tgz#c9d8723a1ed57012743b3328ff6dda4dd0e48c46"
+  integrity sha512-/Ajy0vlqneMB53nE994e8NY2WXtI6jKFwl0K4Hd7y98O8JJ/jgWQEi8DWeetSdZt8Mz5Nt3dENUmsC+aKC7g+Q==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    lodash.throttle "^4.1.1"
+    react-vtkjs-viewport "^0.14.4"
+
 "@ohif/i18n@^0.2.3":
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/@ohif/i18n/-/i18n-0.2.5.tgz#2b92a78109823ce0f50dd590201d980a5fd64974"

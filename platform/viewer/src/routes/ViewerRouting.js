@@ -7,6 +7,9 @@ import useServer from '../customHooks/useServer';
 import useQuery from '../customHooks/useQuery';
 const { urlUtil: UrlUtil } = utils;
 
+import config from '../../public/config/dev.json';
+var isWebDevelopment = config.isWebDevelopment;
+
 /**
  * Get array of seriesUIDs from param or from queryString
  * @param {*} seriesInstanceUIDs
@@ -42,7 +45,11 @@ function ViewerRouting({ match: routeMatch, location: routeLocation }) {
   }
 
   const server = useServer({ project, location, dataset, dicomStore });
-  const studyUIDs = UrlUtil.paramString.parseParam(studyInstanceUIDs);
+  const studyUIDs = isWebDevelopment
+    ? UrlUtil.paramString.parseParam(studyInstanceUIDs)
+    : server.studyInstanceUids
+    ? [server.studyInstanceUids]
+    : UrlUtil.paramString.parseParam(studyInstanceUids);
   const seriesUIDs = getSeriesInstanceUIDs(seriesInstanceUIDs, routeLocation);
 
   if (server && studyUIDs) {

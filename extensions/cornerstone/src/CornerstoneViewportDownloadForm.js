@@ -84,6 +84,9 @@ const CornerstoneViewportDownloadForm = ({ onClose, activeViewportIndex }) => {
 
   const toggleAnnotations = (toggle, viewportElement) => {
     cornerstoneTools.store.state.tools.forEach(({ name }) => {
+      // cornerstoneTools.setToolEnabledForElement(viewportElement, '')
+      // csTools.StackScrollTool,
+      // csTools.StackScrollMouseWheelTool,
       if (toggle) {
         cornerstoneTools.setToolEnabledForElement(viewportElement, name);
       } else {

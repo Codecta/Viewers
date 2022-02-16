@@ -343,10 +343,14 @@ function _getButtonComponents(toolbarButtons, activeButtons) {
 function _handleToolbarButtonClick(button, evt, props) {
   const { activeButtons } = this.state;
 
+  //Open more informations, since this is not a measurement action it sets stackscroll
+  //as active tool instantly so the previous state of toggleing is forgot
   if (button.commandOptions !== undefined) {
     if (button.commandOptions.toolName !== undefined) {
       if (button.commandOptions.toolName === 'PatientInformationsPanel') {
         this.props.toggleMoreOptionsPanel();
+        const options = Object.assign({ evt }, { toolName: 'StackScroll' });
+        commandsManager.runCommand('setToolActive', options);
       }
     }
   }
